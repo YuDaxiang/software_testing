@@ -4,7 +4,9 @@ Feature: YourLogo sign in page test
     Given the home page is opened
     And the Sign In link is clicked
 
-  Scenario Outline:
+
+
+  Scenario Outline: test invalid value
     Given the '<field>' is filled with '<parameter>'
     When the Sign In button is clicked
     Then the '<msg>' error message is shown

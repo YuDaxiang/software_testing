@@ -12,9 +12,9 @@ import java.util.Optional;
 public class HomePage {
 
     private static final String PAGE_URL = "http://automationpractice.com/";
-    private static final By REGISTER_ERROR = By.xpath("//*[@id=\"create_account_error\"]/ol/li");
-    private static final By LOGIN_ERROR = By.xpath("//*[@id=\"center_column\"]/div[1]/ol/li");
+    private static final By REGISTER_ERROR = By.xpath("//*[@id=\"create_account_error\"]/ol/li");    private static final By LOGIN_ERROR = By.xpath("//*[@id=\"center_column\"]/div[1]/ol/li");
     private static final By CONTACT_ERROR = By.cssSelector("#center_column > div > ol > li");
+    private static final  By Create_Account_ERROR = By.id("create_account_error");
 
     @FindBy(className = "login")//通过指定name属性，可以将signInLink转换成当前页面的一个WebElement对象
     private WebElement signInLink;//定义变量
@@ -33,6 +33,7 @@ public class HomePage {
 
     @FindBy(id="SubmitAccount")
     private WebElement registerButton;
+
 
     private WebDriver driver;
 
@@ -61,10 +62,12 @@ public class HomePage {
         registerButton.click();
     }
 
-    public Optional<String> getRegisterError(){
+    public Optional<String> getRegisterError() {
         return getErrorMessage(REGISTER_ERROR);
     }
-
+    public  Optional<String> getCreateAccountError(){
+        return getCreateAccountMessage();
+    }
     public Optional<String> getLoginError() {
         return getErrorMessage(LOGIN_ERROR);
     }
@@ -98,13 +101,14 @@ public class HomePage {
     }
 
     public Optional<String> getCreateAccountMessage(){
-        WebElement element = driver.findElement(By.id("submitAccount"));
+        WebElement element = driver.findElement(By.xpath("/html/body/div/div[2]/div/div[3]/div/div[1]/ol/li"));
+//      By.xpath("/html/body/div/div[2]/div/div[3]/div/div[1]/ol/li")
         return Optional.of(element.getText());//register那个地方
     }
 
-    public Optional<String> getregisterError(){
-        return getErrorMessage(REGISTER_ERROR);
-    }
+//    public Optional<String> getregisterError(){
+//        return getErrorMessage(REGISTER_ERROR);
+//    }
 
     private Optional<String> getErrorMessage(By errorLocator) {
         Optional<WebElement> error = getError(errorLocator);

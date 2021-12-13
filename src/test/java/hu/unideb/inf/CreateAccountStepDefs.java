@@ -41,10 +41,10 @@ public class CreateAccountStepDefs extends AbstractStepDefs {
         homePage.clickSignInLink();
     }
 
-    @When("the Sign In button is clicked")
-    public void theSignInButtonIsClicked() {
-        homePage.clickSignInButton();
-    }
+//    @When("the Sign In button is clicked")
+//    public void theSignInButtonIsClicked() {
+//        homePage.clickSignInButton();
+//    }
 
     @Given("the {string} is filled with {string}")
     public void theFieldIsFilledWithParameter(String field, String parameter) {
@@ -56,10 +56,12 @@ public class CreateAccountStepDefs extends AbstractStepDefs {
         homePage.clickCreateAccountButton();
     }
 
-    @Then("the {string} error message is shown")
+    @Then("the Sign Up {string} error message is shown")
     public void theMsgErrorMessageIsShown(String msg) {
         Optional<String> errorMessage = homePage.getRegisterError();
         if (errorMessage.isPresent()) {
+            System.out.println(errorMessage.get());
+            System.out.println(msg);
             Assert.assertEquals(msg, errorMessage.get());
         } else {
             fail();

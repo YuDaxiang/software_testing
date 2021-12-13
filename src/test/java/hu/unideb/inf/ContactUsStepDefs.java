@@ -32,7 +32,12 @@ public class ContactUsStepDefs extends AbstractStepDefs {
         }
     }
 
-    @Given("the email address is filled with {string}")
+    @Given("the Subject Heading is selected with {string}")
+    public void theSubjectHeadingIsSelectedWith(String arg0) {
+        homePage.fillField("template", arg0);
+    }
+
+    @And("the email address is filled with {string}")
     public void theEmailAddressIsFilledWith(String arg0) {
         homePage.fillField("email", arg0);
     }
