@@ -17,6 +17,9 @@ public class HomePage {
     private static final By REGISTER_ERROR = By.xpath("//*[@id=\"create_account_error\"]/ol/li");    private static final By LOGIN_ERROR = By.xpath("//*[@id=\"center_column\"]/div[1]/ol/li");
     private static final By CONTACT_ERROR = By.cssSelector("#center_column > div > ol > li");
     private static final  By Create_Account_ERROR = By.id("create_account_error");
+    private static final By PrintedDress = By.xpath("/html/body/div/div[2]/div/div[3]/div[2]/ul/li[1]/div/div[2]/h5/a");
+    private static final By SEARCH_ERROR = By.xpath("/html/body/div/div[2]/div/div[3]/div[2]/p");
+
 
     @FindBy(className = "login")//通过指定name属性，可以将signInLink转换成当前页面的一个WebElement对象
     private WebElement signInLink;//定义变量
@@ -36,6 +39,16 @@ public class HomePage {
     @FindBy(id="submitAccount")
     private WebElement registerButton;
 
+    @FindBy(name ="submit_search")
+    private WebElement searchButton;
+
+    public WebElement getSearchButton() {
+        return searchButton;
+    }
+
+    public static By getPrintedDress() {
+        return PrintedDress;
+    }
 
     private WebDriver driver;
 
@@ -78,6 +91,10 @@ public class HomePage {
         return getErrorMessage(CONTACT_ERROR);
     }
 
+    public Optional<String> getSearchError() {
+        return getErrorMessage(SEARCH_ERROR);
+    }
+
     public void fillField(String field, String value) {
         getField(By.id(field)).sendKeys(value);
     }
@@ -112,6 +129,9 @@ public class HomePage {
     public Optional<String> getregisterError(){
         return getErrorMessage(REGISTER_ERROR);
     }
+
+    public void clicksearchButton(){searchButton.click();}
+
     public void logout () {
         WebElement element = driver.findElement(By.className("logout"));
         element.click();
