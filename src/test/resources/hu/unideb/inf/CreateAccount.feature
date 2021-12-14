@@ -16,6 +16,6 @@ Feature: Testing Create Account page
       | email_create | valid@email.com   | An account using this email address has already been registered. Please enter a valid password or request a new one.      |
 
   Scenario:
-    Given the Sign Up "email_create" is filled with 'yudaxiang@gmail.com'
-    And the Create an account button is clicked
-    Then the Sign Up "Register" Button is shown
+    Given the "email_create" is filled with "yudaxiang@gmail.com"
+    When the Create Account button is clicked
+    Then the CreateAccount"Register" Button is shown

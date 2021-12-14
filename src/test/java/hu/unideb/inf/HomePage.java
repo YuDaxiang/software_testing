@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +33,7 @@ public class HomePage {
     @FindBy(id="SubmitCreate")
     private WebElement CreateAccountButton;
 
-    @FindBy(id="SubmitAccount")
+    @FindBy(id="submitAccount")
     private WebElement registerButton;
 
 
@@ -101,14 +103,26 @@ public class HomePage {
     }
 
     public Optional<String> getCreateAccountMessage(){
-        WebElement element = driver.findElement(By.xpath("/html/body/div/div[2]/div/div[3]/div/div[1]/ol/li"));
-//      By.xpath("/html/body/div/div[2]/div/div[3]/div/div[1]/ol/li")
-        return Optional.of(element.getText());//register那个地方
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("submitAccount")));
+        WebElement element = driver.findElement(By.id("submitAccount"));
+        return Optional.of(element.getText());
     }
 
-//    public Optional<String> getregisterError(){
-//        return getErrorMessage(REGISTER_ERROR);
-//    }
+    public Optional<String> getregisterError(){
+        return getErrorMessage(REGISTER_ERROR);
+    }
+    public void logout () {
+        WebElement element = driver.findElement(By.className("logout"));
+        element.click();
+    }
+
+    public Optional<String> getMyAccountMessage() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("info-account")));
+        WebElement element = driver.findElement(By.className("info-account"));
+        return Optional.of(element.getText());
+    }
 
     private Optional<String> getErrorMessage(By errorLocator) {
         Optional<WebElement> error = getError(errorLocator);
